@@ -24,7 +24,7 @@
           name="name"
           autocomplete="name"
           required
-          class="mt-1.5 w-full rounded-2xl border border-sand bg-cream px-4 py-3 outline-none focus:border-forest"
+          class="mt-1.5 w-full rounded-2xl border border-sand bg-black/[0.03] px-4 py-3 outline-none focus:border-forest"
         >
         <p v-if="errors.name" class="mt-1 text-sm text-earth">{{ errors.name }}</p>
       </div>
@@ -37,7 +37,7 @@
           name="email"
           autocomplete="email"
           required
-          class="mt-1.5 w-full rounded-2xl border border-sand bg-cream px-4 py-3 outline-none focus:border-forest"
+          class="mt-1.5 w-full rounded-2xl border border-sand bg-black/[0.03] px-4 py-3 outline-none focus:border-forest"
         >
         <p v-if="errors.email" class="mt-1 text-sm text-earth">{{ errors.email }}</p>
       </div>
@@ -46,7 +46,7 @@
         <select
           id="subject"
           v-model="form.subject"
-          class="mt-1.5 w-full rounded-2xl border border-sand bg-cream px-4 py-3 outline-none focus:border-forest"
+          class="mt-1.5 w-full rounded-2xl border border-sand bg-black/[0.03] px-4 py-3 outline-none focus:border-forest"
         >
           <option v-for="subject in subjects" :key="subject">{{ subject }}</option>
         </select>
@@ -59,7 +59,7 @@
           name="message"
           rows="5"
           required
-          class="mt-1.5 w-full rounded-2xl border border-sand bg-cream px-4 py-3 outline-none focus:border-forest"
+          class="mt-1.5 w-full rounded-2xl border border-sand bg-black/[0.03] px-4 py-3 outline-none focus:border-forest"
         />
         <p v-if="errors.message" class="mt-1 text-sm text-earth">{{ errors.message }}</p>
       </div>

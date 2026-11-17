@@ -7,7 +7,7 @@
       image="/images/mount-apo-forest.jpg"
     />
 
-    <div class="bg-cream">
+    <div class="bg-white">
       <section
         v-for="(experience, index) in experiences"
         :id="experience.slug"

@@ -1,17 +1,37 @@
 <template>
-  <div class="bg-white pt-[4.25rem]">
+  <div class="overflow-x-clip bg-transparent">
     <HeroSection />
-    <CategoryNav />
-    <MustDoSection :cards="mustDo" />
-    <FestivalBanner
-      v-if="festival"
-      :title="festival.title"
-      :summary="festivalSummary"
-      :image="festival.image"
-      to="/culture"
-    />
-    <TripPlanSection :events="events" />
-  
+    <div ref="revealRoot">
+      <div data-reveal-group>
+        <div data-reveal>
+          <CategoryNav />
+        </div>
+      </div>
+
+      <div data-reveal-group>
+        <div data-reveal>
+          <MustDoSection :cards="mustDo" />
+        </div>
+      </div>
+
+      <div data-reveal-group>
+        <div data-reveal>
+          <FestivalBanner
+            v-if="festival"
+            :title="festival.title"
+            :summary="festivalSummary"
+            :image="festival.image"
+            to="/culture"
+          />
+        </div>
+      </div>
+
+      <div data-reveal-group>
+        <div data-reveal>
+          <TripPlanSection :events="events" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -114,9 +134,8 @@ const events = computed(() => (culture.value ?? []).slice(0, 3).map((item) => {
   }
 }))
 
-const taste = computed(() => (flavors.value ?? []).find(item => item.slug === 'durian') ?? (flavors.value ?? [])[0])
-const tasteImage = computed(() => taste.value?.image ?? '/images/durian-basket.jpg')
-const tasteAlt = computed(() => taste.value?.name ?? 'Davao durian')
+const revealRoot = ref<HTMLElement | null>(null)
+useScrollReveal(revealRoot)
 
 usePageSeo(
   'Nature, Culture, Adventure',
