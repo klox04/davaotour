@@ -1,6 +1,6 @@
 <template>
   <section class="relative z-20 bg-navy" aria-roledescription="carousel" aria-label="Davao City scenery">
-    <div class="relative h-[calc(100svh-4.25rem)] min-h-[560px] overflow-hidden">
+    <div class="relative h-svh min-h-[560px] overflow-hidden">
       <SiteImage
         v-for="(slide, index) in slides"
         :key="slide.src"

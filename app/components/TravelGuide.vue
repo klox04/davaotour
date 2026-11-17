@@ -13,7 +13,7 @@
         :to="`/travel-guide#${topic.slug}`"
         class="rounded-2xl bg-white p-4 shadow-[0_8px_24px_rgba(22,75,53,0.05)] transition hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(22,75,53,0.1)]"
       >
-        <span class="grid size-10 place-items-center rounded-full bg-cream text-forest">
+        <span class="grid size-10 place-items-center rounded-full bg-black/[0.04] text-forest">
           <Icon :name="topic.icon" class="size-5" />
         </span>
         <span class="mt-3 block text-sm font-semibold leading-snug text-ink">{{ topic.title }}</span>
@@ -28,7 +28,7 @@
         class="scroll-mt-28 rounded-[1.5rem] bg-white p-6 shadow-[0_10px_30px_rgba(22,75,53,0.05)] sm:p-8"
       >
         <div class="flex items-start gap-4">
-          <span class="grid size-12 shrink-0 place-items-center rounded-2xl bg-cream text-forest">
+          <span class="grid size-12 shrink-0 place-items-center rounded-2xl bg-black/[0.04] text-forest">
             <Icon :name="topic.icon" class="size-6" />
           </span>
           <div>
@@ -43,7 +43,7 @@
           <details
             v-for="item in faqs"
             :key="item.question"
-            class="group rounded-2xl bg-cream px-4 py-3 open:bg-sand"
+            class="group rounded-2xl bg-black/[0.04] px-4 py-3 open:bg-black/[0.07]"
           >
             <summary class="cursor-pointer list-none font-semibold text-forest [&::-webkit-details-marker]:hidden">
               <span class="flex items-center justify-between gap-3">

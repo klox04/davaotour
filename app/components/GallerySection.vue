@@ -33,7 +33,7 @@
           role="tab"
           :aria-selected="active === category"
           class="rounded-full px-4 py-2 text-sm font-semibold transition"
-          :class="active === category ? 'bg-forest text-white' : 'bg-white text-ink hover:bg-sand'"
+          :class="active === category ? 'bg-forest text-white' : 'bg-black/[0.03] text-ink hover:bg-black/[0.06]'"
           @click="active = category"
         >
           {{ category }}
@@ -60,30 +60,39 @@
         </button>
       </div>
 
-      <dialog
-        ref="dialog"
-        data-lenis-prevent
-        class="w-[min(960px,calc(100%-2rem))] rounded-[1.4rem] bg-forest-deep p-3 text-white backdrop:bg-black/70"
-        @close="selected = null"
-      >
-        <figure v-if="selected">
-          <SiteImage :src="selected.src" :alt="selected.alt" class="max-h-[75vh] w-full rounded-2xl object-contain" />
-          <figcaption class="flex items-center justify-between gap-3 px-2 py-3 text-sm">
-            <span>{{ selected.caption }}</span>
-            <span class="text-white/60">{{ selected.category }}</span>
-          </figcaption>
-        </figure>
-        <div class="flex justify-end gap-2 px-2 pb-2">
-          <button type="button" class="rounded-full bg-white/10 px-4 py-2 text-sm" @click="step(-1)">Previous</button>
-          <button type="button" class="rounded-full bg-white/10 px-4 py-2 text-sm" @click="step(1)">Next</button>
-          <button type="button" class="rounded-full bg-gold px-4 py-2 text-sm font-semibold text-ink" @click="close">Close</button>
-        </div>
-      </dialog>
+      <Teleport to="body">
+        <dialog
+          ref="dialog"
+          data-lenis-prevent
+          class="fixed left-1/2 top-1/2 z-[60] m-0 w-[min(960px,calc(100%-1.5rem))] -translate-x-1/2 -translate-y-1/2 rounded-[1.4rem] border-0 bg-forest-deep p-3 text-white shadow-2xl open:flex open:flex-col backdrop:bg-black/70"
+          aria-label="Gallery image"
+          @close="onDialogClose"
+          @click="onBackdropClick"
+        >
+          <figure v-if="selected" class="min-w-0" @click.stop>
+            <SiteImage
+              :src="selected.src"
+              :alt="selected.alt"
+              class="max-h-[min(75vh,720px)] w-full rounded-2xl object-contain"
+            />
+            <figcaption class="flex items-center justify-between gap-3 px-2 py-3 text-sm">
+              <span>{{ selected.caption }}</span>
+              <span class="shrink-0 text-white/60">{{ selected.category }}</span>
+            </figcaption>
+          </figure>
+          <div class="flex flex-wrap justify-end gap-2 px-2 pb-2" @click.stop>
+            <button type="button" class="rounded-full bg-white/10 px-4 py-2 text-sm transition hover:bg-white/20" @click="step(-1)">Previous</button>
+            <button type="button" class="rounded-full bg-white/10 px-4 py-2 text-sm transition hover:bg-white/20" @click="step(1)">Next</button>
+            <button type="button" class="rounded-full bg-gold px-4 py-2 text-sm font-semibold text-ink transition hover:bg-gold-deep" @click="close">Close</button>
+          </div>
+        </dialog>
+      </Teleport>
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useLenis } from 'lenis/vue'
 import { galleryCategories } from '~/data/gallery'
 import type { GalleryItem } from '~/types/content'
 
@@ -94,6 +103,7 @@ const props = withDefaults(defineProps<{
   layout: 'strip',
 })
 
+const lenis = useLenis()
 const active = ref<(typeof galleryCategories)[number]>('All')
 const selected = ref<GalleryItem | null>(null)
 const dialog = ref<HTMLDialogElement | null>(null)
@@ -105,19 +115,32 @@ const filtered = computed(() => {
 
 const strip = computed(() => props.items.filter(item => item.featured).slice(0, 4))
 
-function open(item: GalleryItem) {
+async function open(item: GalleryItem) {
   selected.value = item
-  dialog.value?.showModal()
+  await nextTick()
+  if (!dialog.value?.open) dialog.value?.showModal()
+  lenis.value?.stop()
+  document.body.style.overflow = 'hidden'
 }
 
 function close() {
   dialog.value?.close()
+}
+
+function onDialogClose() {
   selected.value = null
+  lenis.value?.start()
+  document.body.style.overflow = ''
+}
+
+function onBackdropClick(event: MouseEvent) {
+  if (event.target === dialog.value) close()
 }
 
 function step(direction: number) {
   if (!selected.value) return
   const list = filtered.value
+  if (!list.length) return
   const index = list.findIndex(item => item.src === selected.value?.src)
   const next = list[(index + direction + list.length) % list.length]
   if (next) selected.value = next
@@ -130,5 +153,9 @@ function onKey(event: KeyboardEvent) {
 }
 
 onMounted(() => window.addEventListener('keydown', onKey))
-onUnmounted(() => window.removeEventListener('keydown', onKey))
+onUnmounted(() => {
+  window.removeEventListener('keydown', onKey)
+  if (dialog.value?.open) dialog.value.close()
+  document.body.style.overflow = ''
+})
 </script>

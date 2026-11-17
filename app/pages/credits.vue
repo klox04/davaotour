@@ -1,5 +1,5 @@
 <template>
-  <article class="bg-cream pb-16 pt-24 md:pb-24 md:pt-28">
+  <article class="bg-white pb-16 pt-24 md:pb-24 md:pt-28">
     <div class="container-page">
       <p class="text-xs font-semibold uppercase tracking-[0.22em] text-tropical">Credits</p>
       <h1 class="mt-3 font-serif text-4xl text-forest sm:text-5xl">Photo credits</h1>

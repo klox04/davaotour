@@ -8,7 +8,7 @@
       image-position="object-[center_40%]"
     />
 
-    <section class="bg-cream py-16 md:py-24">
+    <section class="bg-white py-16 md:py-24">
       <div class="container-page grid items-center gap-10 lg:grid-cols-2">
         <div>
           <p class="text-xs font-semibold uppercase tracking-[0.22em] text-tropical">The place</p>
@@ -32,21 +32,21 @@
 
     <section class="bg-white py-16 md:py-24">
       <div class="container-page grid gap-6 md:grid-cols-3">
-        <article class="overflow-hidden rounded-[1.4rem] bg-cream">
+        <article class="overflow-hidden rounded-[1.4rem] border border-black/5 bg-white">
           <SiteImage src="/images/mount-apo-trail.jpg" alt="Forest trail on Mount Apo" class="h-52 w-full object-cover" />
           <div class="p-6">
             <h2 class="font-serif text-2xl text-forest">Nature</h2>
             <p class="mt-2 text-sm leading-relaxed text-muted">From a highland garden in Toril to a permitted climb of Mount Apo, the outdoors scale to the day you have.</p>
           </div>
         </article>
-        <article class="overflow-hidden rounded-[1.4rem] bg-cream">
+        <article class="overflow-hidden rounded-[1.4rem] border border-black/5 bg-white">
           <SiteImage src="/images/kadayawan.jpg" alt="Kadayawan performers" class="h-52 w-full object-cover object-top" />
           <div class="p-6">
             <h2 class="font-serif text-2xl text-forest">Culture</h2>
             <p class="mt-2 text-sm leading-relaxed text-muted">Kadayawan, weaving, and community celebrations keep Davao’s many peoples in the foreground.</p>
           </div>
         </article>
-        <article class="overflow-hidden rounded-[1.4rem] bg-cream">
+        <article class="overflow-hidden rounded-[1.4rem] border border-black/5 bg-white">
           <SiteImage src="/images/durian-basket.jpg" alt="Basket of durian" class="h-52 w-full object-cover" />
           <div class="p-6">
             <h2 class="font-serif text-2xl text-forest">Flavor</h2>

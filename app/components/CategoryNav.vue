@@ -1,16 +1,17 @@
 <template>
-  <nav aria-label="Tourism categories" class="relative z-10 border-b border-black/5 bg-white">
-    <ul class="container-page flex w-full min-w-0 max-w-full gap-1 overflow-x-auto py-5 [-ms-overflow-style:none] [scrollbar-width:none] sm:py-6 [&::-webkit-scrollbar]:hidden">
+  <nav aria-label="Tourism categories" class="relative z-10 border-b border-black/5 bg-transparent">
+    <ul class="container-page flex w-full min-w-0 gap-0 overflow-x-auto py-4 [-ms-overflow-style:none] [scrollbar-width:none] sm:py-6 [&::-webkit-scrollbar]:hidden">
       <li
+        data-reveal
         v-for="(item, index) in categories"
         :key="item.label"
-        class="flex min-w-[7.5rem] flex-1 items-center"
+        class="flex min-w-[6.5rem] shrink-0 items-center sm:min-w-[7.25rem] sm:flex-1"
       >
-        <NuxtLink :to="item.to" class="group flex w-full flex-col items-center gap-2 px-2 text-center">
-          <Icon :name="item.icon" class="size-6" :class="item.color" />
-          <span class="text-[0.78rem] font-medium text-navy transition group-hover:text-brand">{{ item.label }}</span>
+        <NuxtLink :to="item.to" class="group flex w-full flex-col items-center gap-1.5 px-2 text-center sm:gap-2">
+          <Icon :name="item.icon" class="size-5 sm:size-6" :class="item.color" />
+          <span class="text-[0.7rem] font-medium leading-tight text-navy transition group-hover:text-brand sm:text-[0.78rem]">{{ item.label }}</span>
         </NuxtLink>
-        <span v-if="index < categories.length - 1" class="hidden h-10 w-px shrink-0 bg-black/10 sm:block" aria-hidden="true" />
+        <span v-if="index < categories.length - 1" class="hidden h-10 w-px shrink-0 bg-black/10 md:block" aria-hidden="true" />
       </li>
     </ul>
   </nav>

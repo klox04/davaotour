@@ -8,7 +8,7 @@
       image-position="object-[center_30%]"
     />
 
-    <section class="bg-cream py-16 md:py-24">
+    <section class="bg-white py-16 md:py-24">
       <div class="container-page grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div>
           <p class="text-xs font-semibold uppercase tracking-[0.22em] text-tropical">Kadayawan</p>
