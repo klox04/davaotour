@@ -1,0 +1,147 @@
+@import "@fontsource-variable/fraunces/wght.css";
+@import "@fontsource-variable/outfit/wght.css";
+@import "@fontsource/great-vibes/latin-400.css";
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --font-sans: "Outfit Variable", "Segoe UI", sans-serif;
+  --font-script: "Great Vibes", cursive;
+  --color-forest: #164b35;
+  --color-forest-deep: #0e3325;
+  --color-card: #143528;
+  --color-tropical: #3c7955;
+  --color-cream: #f8f6ef;
+  --color-sand: #efe9db;
+  --color-earth: #8b684a;
+  --color-gold: #d9a441;
+  --color-gold-deep: #c4922e;
+  --color-ink: #252a26;
+  --color-muted: #5c675f;
+  --color-brand: #087a42;
+  --color-brand-deep: #075c38;
+  --color-navy: #14212b;
+  --color-slate: #66737d;
+  --color-magenta: #a5004d;
+  --color-festive: #ffdb55;
+  --color-lagoon: #1e9bbb;
+  --color-blush: #fce7ef;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-cream);
+  color: var(--color-ink);
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #d9a441;
+  color: #252a26;
+}
+
+:focus-visible {
+  outline: 2px solid #d9a441;
+  outline-offset: 3px;
+}
+
+.container-page {
+  width: min(1180px, calc(100% - 2.5rem));
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .container-page {
+    width: min(1180px, calc(100% - 4rem));
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 80;
+  border-radius: 999px;
+  background: #164b35;
+  color: white;
+  padding: 0.6rem 1rem;
+  font-size: 0.875rem;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.15rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.9s cubic-bezier(0.22, 0.9, 0.3, 1) both;
+}
+
+.rise-1 { animation-delay: 0.05s; }
+.rise-2 { animation-delay: 0.16s; }
+.rise-3 { animation-delay: 0.3s; }
+.rise-4 { animation-delay: 0.44s; }
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+.brush {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  animation: draw 1.15s ease forwards 0.55s;
+}
+
+@keyframes drop {
+  0% { transform: translateY(0); opacity: 1; }
+  80% { transform: translateY(8px); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.scroll-dot {
+  animation: drop 1.6s ease-in-out infinite;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.page-leave-to {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .rise,
+  .brush,
+  .scroll-dot,
+  .page-enter-active,
+  .page-leave-active {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
