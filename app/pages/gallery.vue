@@ -7,7 +7,7 @@
       image="/images/mount-apo-peak.jpg"
       image-position="object-[center_50%]"
     />
-    <section class="bg-cream py-14 md:py-20">
+    <section class="bg-white py-14 md:py-20">
       <div class="container-page">
         <GallerySection :items="gallery ?? []" layout="masonry" />
       </div>

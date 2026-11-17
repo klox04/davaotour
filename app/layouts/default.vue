@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen flex-col overflow-x-clip bg-cream">
+  <div class="flex min-h-screen flex-col overflow-x-clip bg-white">
     <a href="#main" class="skip-link">Skip to content</a>
     <AppNavbar />
     <main id="main" class="flex-1">

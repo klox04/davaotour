@@ -1,5 +1,5 @@
 <template>
-  <section id="discover" ref="root" class="bg-cream py-20 md:py-28">
+  <section id="discover" ref="root" class="bg-white py-20 md:py-28">
     <div class="container-page grid items-center gap-8 lg:grid-cols-12">
       <div class="lg:col-span-4" data-reveal-group>
         <p data-reveal class="text-xs font-semibold uppercase tracking-[0.22em] text-tropical">Discover Davao</p>

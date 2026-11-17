@@ -8,7 +8,7 @@
       :image-position="destination.imagePosition"
     />
 
-    <section class="bg-cream py-14 md:py-20">
+    <section class="bg-white py-14 md:py-20">
       <div class="container-page grid gap-10 lg:grid-cols-[1.4fr_0.8fr]">
         <div class="space-y-4 text-lg leading-relaxed text-ink/85">
           <p v-for="paragraph in destination.description" :key="paragraph">{{ paragraph }}</p>
@@ -20,7 +20,7 @@
             {{ destination.location }}
           </p>
           <ul class="mt-4 space-y-2">
-            <li v-for="highlight in destination.highlights" :key="highlight" class="rounded-full bg-cream px-3 py-2 text-sm text-forest">
+            <li v-for="highlight in destination.highlights" :key="highlight" class="rounded-full bg-black/[0.04] px-3 py-2 text-sm text-forest">
               {{ highlight }}
             </li>
           </ul>

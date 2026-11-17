@@ -7,7 +7,7 @@
       image="/images/coastal-night.jpg"
     />
 
-    <section class="bg-cream py-14 md:py-20">
+    <section class="bg-white py-14 md:py-20">
       <div class="container-page grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
         <div class="rounded-[1.5rem] bg-forest p-7 text-white">
           <p class="text-xs font-semibold uppercase tracking-[0.2em] text-gold">{{ office.legalName }}</p>

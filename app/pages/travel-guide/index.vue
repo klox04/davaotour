@@ -6,7 +6,7 @@
       description="Flights, boats, weather, and the questions visitors ask before they pack."
       image="/images/peoples-park.jpg"
     />
-    <section class="bg-sand py-14 md:py-20">
+    <section class="bg-white py-14 md:py-20">
       <div class="container-page">
         <TravelGuide :topics="topics ?? []" :faqs="faqs ?? []" />
       </div>

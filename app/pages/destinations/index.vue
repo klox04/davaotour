@@ -7,13 +7,13 @@
       image="/images/lake-venado.jpg"
     />
 
-    <section class="bg-cream py-14 md:py-20">
+    <section class="bg-white py-14 md:py-20">
       <div class="container-page">
         <div class="flex flex-wrap gap-2" role="tablist" aria-label="Filter destinations">
           <button
             type="button"
             class="rounded-full px-4 py-2 text-sm font-semibold"
-            :class="selected === 'all' ? 'bg-forest text-white' : 'bg-white text-ink'"
+            :class="selected === 'all' ? 'bg-forest text-white' : 'bg-black/[0.04] text-ink'"
             @click="selected = 'all'"
           >
             All
@@ -23,7 +23,7 @@
             :key="experience.slug"
             type="button"
             class="rounded-full px-4 py-2 text-sm font-semibold"
-            :class="selected === experience.slug ? 'bg-forest text-white' : 'bg-white text-ink'"
+            :class="selected === experience.slug ? 'bg-forest text-white' : 'bg-black/[0.04] text-ink'"
             @click="selected = experience.slug"
           >
             {{ experience.name }}

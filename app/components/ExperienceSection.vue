@@ -1,5 +1,5 @@
 <template>
-  <section id="experiences" ref="root" class="bg-cream py-20 md:py-28">
+  <section id="experiences" ref="root" class="bg-white py-20 md:py-28">
     <div class="container-page">
       <div class="max-w-2xl" data-reveal-group>
         <p data-reveal class="text-xs font-semibold uppercase tracking-[0.22em] text-tropical">Explore by experience</p>
