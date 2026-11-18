@@ -13,6 +13,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      title: 'Davao City Tourism Office',
       htmlAttrs: { lang: 'en' },
       meta: [
         {
@@ -24,7 +25,7 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
         { property: 'og:locale', content: 'en_PH' },
       ],
-      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/davaoicon.png' }],
     },
     pageTransition: { name: 'page', mode: 'out-in' },
   },
