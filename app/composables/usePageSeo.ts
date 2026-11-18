@@ -1,14 +1,12 @@
 export function usePageSeo(title: string, description: string, image = '/images/mount-apo-peak.jpg') {
-  const fullTitle = `${title} · Davao City Tourism`
-
   useSeoMeta({
-    title: fullTitle,
+    title: 'Davao City Tourism Office',
     description,
-    ogTitle: fullTitle,
+    ogTitle: 'Davao City Tourism Office',
     ogDescription: description,
     ogImage: image,
     twitterCard: 'summary_large_image',
-    twitterTitle: fullTitle,
+    twitterTitle: 'Davao City Tourism Office',
     twitterDescription: description,
     twitterImage: image,
   })
