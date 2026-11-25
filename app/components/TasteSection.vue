@@ -13,7 +13,7 @@
           From the world-famous Davao durian to fresh local flavors, experience a culinary journey like no other.
         </p>
         <NuxtLink
-          to="/experiences#food-gastronomy"
+          to="/things-to-do#food-gastronomy"
           class="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-navy transition hover:bg-festive"
         >
           Discover Davao Food

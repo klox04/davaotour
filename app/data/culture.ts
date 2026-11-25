@@ -43,7 +43,7 @@ export const cultureHighlights: CultureHighlight[] = [
 export const communities = [
   {
     name: 'Bagobo Klata, Tagabawa, and Obu Manuvu',
-    summary: 'Peoples of the highlands around Mount Apo, known for inabal weaving, brass, and a deep tie to the mountain.',
+    summary: 'Peoples of the highlands around Mount Apo, known for traditional weaving, brass, and a deep tie to the mountain.',
     image: '/images/culture-bagobo.jpg',
   },
   {
@@ -58,7 +58,7 @@ export const communities = [
   },
   {
     name: 'Maguindanaon and neighboring Moro communities',
-    summary: 'Homes, boats, and okir patterns that carry the maritime and river traditions of Mindanao into the city.',
+    summary: 'Homes, boats, and textile patterns that carry the maritime and river traditions of Mindanao into the city.',
     image: '/images/culture-house.jpg',
   },
 ]

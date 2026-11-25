@@ -40,6 +40,49 @@
         </p>
       </div>
     </section>
+
+    <section class="bg-white pb-16 md:pb-24">
+      <div class="container-page">
+        <div class="relative overflow-hidden rounded-[1.5rem]">
+          <SiteImage
+            src="/images/peoples-park-2.jpg"
+            alt="Davao City with mountains beyond at golden hour"
+            class="absolute inset-0 h-full w-full object-cover object-[68%_42%]"
+          />
+          <div class="absolute inset-0 bg-[linear-gradient(105deg,rgba(255,255,255,0.96)_0%,rgba(255,255,255,0.9)_34%,rgba(255,255,255,0.45)_52%,rgba(255,255,255,0)_68%)]" />
+          <div class="relative z-10 grid gap-5 px-5 py-5 sm:grid-cols-[1.15fr_0.85fr] sm:items-end sm:gap-4 sm:px-7 sm:py-6 lg:px-8">
+            <div class="max-w-xl">
+              <p class="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-brand">Plan your trip</p>
+              <h2 class="mt-1.5 font-serif text-2xl font-semibold tracking-tight text-forest-deep sm:text-3xl">
+                Plan Your Davao Escape
+              </h2>
+              <p class="mt-2 max-w-[38ch] text-sm leading-relaxed text-[#4b5560]">
+                Turn your destination ideas into a complete trip. Find the best places to stay and essential travel information for a hassle-free visit.
+              </p>
+              <NuxtLink
+                to="/where-to-stay"
+                class="mt-4 inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2.5 text-sm font-semibold text-forest-deep transition hover:bg-gold-deep"
+              >
+                Build My Itinerary
+                <Icon name="lucide:arrow-right" class="size-4" />
+              </NuxtLink>
+            </div>
+
+            <ul class="grid grid-cols-1 gap-2.5 sm:grid-cols-3">
+              <li v-for="link in tripLinks" :key="link.label">
+                <NuxtLink
+                  :to="link.to"
+                  class="flex min-h-[4.25rem] flex-col items-center justify-center gap-1.5 rounded-2xl bg-white px-2 py-3 text-center shadow-[0_10px_28px_rgba(14,51,37,0.12)] transition hover:-translate-y-0.5"
+                >
+                  <Icon :name="link.icon" class="size-4 text-brand" />
+                  <span class="text-xs font-semibold text-forest-deep sm:text-sm">{{ link.label }}</span>
+                </NuxtLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -55,6 +98,12 @@ const filtered = computed(() => {
   if (selected.value === 'all') return list
   return list.filter(item => item.experiences.includes(selected.value))
 })
+
+const tripLinks = [
+  { label: 'Where to Stay', to: '/where-to-stay', icon: 'lucide:bed' },
+  { label: 'Travel Information', to: '/travel-guide', icon: 'lucide:info' },
+
+]
 
 usePageSeo(
   'Destinations',
