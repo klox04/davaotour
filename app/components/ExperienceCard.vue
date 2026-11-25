@@ -1,6 +1,6 @@
 <template>
   <NuxtLink
-    :to="`/experiences#${experience.slug}`"
+    :to="`/things-to-do#${experience.slug}`"
     class="group flex h-full flex-col overflow-hidden rounded-[1.3rem] bg-card text-white shadow-[0_12px_30px_rgba(20,53,40,0.1)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(20,53,40,0.18)]"
   >
     <div class="relative aspect-[4/3] overflow-hidden">

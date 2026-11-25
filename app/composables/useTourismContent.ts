@@ -28,14 +28,15 @@ import type {
  *   POST {apiBase}/inquiries
  */
 export function useTourismContent() {
-  const config = useRuntimeConfig()
+  const { apiBase: configuredBase, GET_API, POST_API } = useGlobalStore()
+  const apiBase = computed(() => configuredBase)
 
-  const apiBase = computed(() => String(config.public.apiBase || '').replace(/\/$/, ''))
-
-  async function load<T>(path: string, fallback: T): Promise<T> {
+  async function load<T>(path: string, fallback: T[]): Promise<T[]> {
     if (!apiBase.value) return fallback
     try {
-      return await $fetch(`${apiBase.value}${path}`) as T
+      const result = await GET_API<T[] | { data: T[] }>(path)
+      if (Array.isArray(result)) return result
+      return Array.isArray(result?.data) ? result.data : fallback
     }
     catch {
       return fallback
@@ -43,31 +44,31 @@ export function useTourismContent() {
   }
 
   function getDestinations() {
-    return load<Destination[]>('/destinations', destinationCatalog)
+    return load<Destination>('/destinations', destinationCatalog)
   }
 
   function getExperiences() {
-    return load<Experience[]>('/experiences', experienceCatalog)
+    return load<Experience>('/experiences', experienceCatalog)
   }
 
   function getFlavors() {
-    return load<Flavor[]>('/flavors', flavorCatalog)
+    return load<Flavor>('/flavors', flavorCatalog)
   }
 
   function getCulture() {
-    return load<CultureHighlight[]>('/culture', cultureHighlights)
+    return load<CultureHighlight>('/culture', cultureHighlights)
   }
 
   function getGuide() {
-    return load<GuideTopic[]>('/guide', guideTopics)
+    return load<GuideTopic>('/guide', guideTopics)
   }
 
   function getFaqs() {
-    return load<FaqItem[]>('/faqs', faqs)
+    return load<FaqItem>('/faqs', faqs)
   }
 
   function getGallery() {
-    return load<GalleryItem[]>('/gallery', galleryCatalog)
+    return load<GalleryItem>('/gallery', galleryCatalog)
   }
 
   async function submitInquiry(payload: InquiryPayload) {
@@ -75,10 +76,7 @@ export function useTourismContent() {
       return { delivered: false as const }
     }
 
-    await $fetch(`${apiBase.value}/inquiries`, {
-      method: 'POST',
-      body: payload,
-    })
+    await POST_API('/inquiries', payload)
 
     return { delivered: true as const }
   }

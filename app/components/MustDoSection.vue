@@ -6,7 +6,7 @@
           <p class="text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-brand">Experience Davao</p>
           <h2 class="mt-1 text-2xl font-extrabold tracking-tight text-navy sm:text-3xl md:text-4xl">Must-Do Experiences</h2>
         </div>
-        <NuxtLink to="/experiences" class="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:text-brand-deep">
+        <NuxtLink to="/things-to-do" class="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:text-brand-deep">
           View All Experiences
           <Icon name="lucide:arrow-right" class="size-4" />
         </NuxtLink>

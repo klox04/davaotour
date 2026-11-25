@@ -21,7 +21,7 @@
             :title="festival.title"
             :summary="festivalSummary"
             :image="festival.image"
-            to="/culture"
+            to="/events-festivals"
           />
         </div>
       </div>
@@ -87,7 +87,7 @@ const mustDo = computed(() => {
       title: 'Davao Food Experience',
       image: durian?.image ?? food.image,
       alt: durian?.name ?? food.name,
-      to: `/experiences#${food.slug}`,
+      to: `/things-to-do#${food.slug}`,
       imagePosition: durian ? 'object-center' : food.imagePosition,
     })
   }
@@ -97,7 +97,7 @@ const mustDo = computed(() => {
       title: 'Outdoor Adventures',
       image: scenic,
       alt: apo?.name ?? outdoor.name,
-      to: `/experiences#${outdoor.slug}`,
+      to: `/things-to-do#${outdoor.slug}`,
       imagePosition: 'object-center',
     })
   }
@@ -129,7 +129,7 @@ const events = computed(() => (culture.value ?? []).slice(0, 3).map((item) => {
   return {
     title: item.title,
     summary: item.summary,
-    to: '/culture',
+    to: '/events-festivals',
     badge: month,
   }
 }))

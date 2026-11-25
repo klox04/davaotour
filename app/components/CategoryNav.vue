@@ -20,11 +20,10 @@
 <script setup lang="ts">
 const categories = [
   { label: 'Attractions', to: '/destinations', icon: 'lucide:mountain', color: 'text-brand' },
-  { label: 'Activities', to: '/experiences', icon: 'lucide:footprints', color: 'text-lagoon' },
-  { label: 'Culture & Heritage', to: '/culture', icon: 'lucide:landmark', color: 'text-magenta' },
-  { label: 'Where to Eat', to: '/experiences#food-gastronomy', icon: 'lucide:utensils', color: 'text-[#d4a017]' },
-  { label: 'Where to Stay', to: '/travel-guide', icon: 'lucide:bed', color: 'text-[#e11d48]' },
-  { label: 'Events & Festivals', to: '/culture', icon: 'lucide:calendar-days', color: 'text-brand' },
+  { label: 'Activities', to: '/things-to-do', icon: 'lucide:footprints', color: 'text-lagoon' },
+  { label: 'Where to Stay', to: '/where-to-stay', icon: 'lucide:bed', color: 'text-[#e11d48]' },
+  { label: 'Events & Festivals', to: '/events-festivals', icon: 'lucide:calendar-days', color: 'text-brand' },
   { label: 'Travel Information', to: '/travel-guide', icon: 'lucide:info', color: 'text-lagoon' },
+
 ]
 </script>

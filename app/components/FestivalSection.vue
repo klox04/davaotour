@@ -19,7 +19,7 @@
           </li>
         </ul>
         <NuxtLink
-          to="/culture"
+          to="/events-festivals"
           class="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-gold px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-gold-deep"
         >
           Explore Our Culture

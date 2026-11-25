@@ -27,8 +27,9 @@ export const mainNav: NavItem[] = [
   { label: 'Home', to: '/' },
   { label: 'Explore Davao', to: '/explore' },
   { label: 'Destinations', to: '/destinations' },
-  { label: 'Experiences', to: '/experiences' },
-  { label: 'Culture & Heritage', to: '/culture' },
+  { label: 'Things to Do', to: '/things-to-do' },
+  { label: 'Events & Festivals', to: '/events-festivals' },
+  { label: 'Where to Stay', to: '/where-to-stay' },
   { label: 'Travel Guide', to: '/travel-guide' },
   { label: 'Contact Us', to: '/contact' },
 ]
@@ -43,10 +44,9 @@ export const headerNav: NavItem[] = [
       { label: 'Gallery', to: '/gallery' },
     ],
   },
-  { label: 'Things to Do', to: '/experiences' },
-  { label: 'Where to Stay', to: '/travel-guide' },
-  { label: 'Where to Eat', to: '/experiences#food-gastronomy' },
-  { label: 'Events & Festivals', to: '/culture' },
+  { label: 'Things to Do', to: '/things-to-do' },
+  { label: 'Where to Stay', to: '/where-to-stay' },
+  { label: 'Events & Festivals', to: '/events-festivals' },
   { label: 'Travel Info', to: '/travel-guide' },
 ]
 

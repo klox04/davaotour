@@ -10,7 +10,17 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: ['gsap', 'gsap/ScrollTrigger', 'lenis', 'lenis/vue'],
     },
+    server: {
+      // Browser calls during `nuxt dev` hit Vite first; forward /api to Laravel.
+      proxy: {
+        '/api': {
+          target: process.env.NUXT_API_PROXY_TARGET || 'http://127.0.0.1:50503',
+          changeOrigin: true,
+        },
+      },
+    },
   },
+
   app: {
     head: {
       title: 'Davao City Tourism Office',
@@ -30,11 +40,32 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page', mode: 'out-in' },
   },
   runtimeConfig: {
+    // Used by the Nuxt dev proxy so /api/* reaches Laravel during `nuxt dev`.
+    apiProxyTarget: process.env.NUXT_API_PROXY_TARGET || 'http://127.0.0.1:50503',
     public: {
-      apiBase: '',
+      // Prefer a same-origin path (`/api/v1`) so session cookies work with the
+      // Laradock nginx vhost, or with the Nitro dev proxy below.
+      apiBase: '/api/v1',
     },
   },
+  routeRules: {
+    '/experiences': { redirect: { to: '/things-to-do', statusCode: 301 } },
+    '/experiences/**': { redirect: { to: '/things-to-do', statusCode: 301 } },
+    '/culture': { redirect: { to: '/events-festivals', statusCode: 301 } },
+  },
+
+
+  nitro: {
+    devProxy: {
+      '/api': {
+        target: process.env.NUXT_API_PROXY_TARGET || 'http://127.0.0.1:50503',
+        changeOrigin: true,
+      },
+    },
+  },
+
   icon: {
     mode: 'svg',
   },
 })
+

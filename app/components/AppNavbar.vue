@@ -62,21 +62,68 @@
         </nav>
 
         <div class="ml-auto flex items-center gap-1.5 sm:gap-2">
-          <button
-            type="button"
-            class="grid size-10 place-items-center rounded-full text-navy transition hover:bg-black/5"
-            aria-label="Search destinations and experiences"
-            @click="openSearch"
-          >
-            <Icon name="lucide:search" class="size-5" />
-          </button>
+          <div ref="searchBox" class="relative">
+            <form
+              role="search"
+              class="flex h-10 items-center overflow-hidden rounded-full transition-[width,background-color] duration-300 ease-out motion-reduce:transition-none"
+              :class="searching ? 'w-[min(18rem,calc(100vw-9rem))] bg-black/5 sm:w-72' : 'w-10'"
+              @submit.prevent="goFirst"
+            >
+              <button
+                type="button"
+                class="grid size-10 shrink-0 place-items-center rounded-full text-navy transition hover:bg-black/5"
+                :aria-label="searching ? 'Close search' : 'Search destinations and experiences'"
+                :aria-expanded="searching"
+                @click="searching ? closeSearch() : openSearch()"
+              >
+                <Icon :name="searching ? 'lucide:x' : 'lucide:search'" class="size-5" />
+              </button>
+              <input
+                v-if="searching"
+                ref="searchInput"
+                v-model="query"
+                type="search"
+                placeholder="Search destinations and experiences"
+                class="min-w-0 flex-1 bg-transparent pr-4 text-sm text-navy outline-none placeholder:text-slate"
+                aria-label="Search query"
+              >
+            </form>
+
+            <!-- results dropdown -->
+            <div
+              v-if="searching && query.trim()"
+              class="absolute right-0 top-full z-20 mt-2 w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-black/5 bg-white p-2 shadow-[0_12px_40px_rgba(20,33,43,0.08)]"
+            >
+              <ul class="max-h-80 overflow-y-auto">
+                <li v-for="result in results" :key="result.to">
+                  <NuxtLink
+                    :to="result.to"
+                    class="flex items-center justify-between rounded-xl px-3 py-2.5 hover:bg-blush/50"
+                    @click="closeSearch"
+                  >
+                    <span>
+                      <span class="block text-sm font-semibold text-navy">{{ result.label }}</span>
+                      <span class="block text-xs text-slate">{{ result.kind }}</span>
+                    </span>
+                    <Icon name="lucide:arrow-up-right" class="size-4 text-slate" />
+                  </NuxtLink>
+                </li>
+                <li v-if="!results.length" class="px-3 py-4 text-sm text-slate">
+                  Nothing matches “{{ query }}”.
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <NuxtLink
             to="/travel-guide"
             class="inline-flex items-center rounded-full bg-brand px-3.5 py-2 text-sm font-semibold text-white transition hover:bg-brand-deep sm:px-4"
+            :class="searching ? 'hidden sm:inline-flex' : ''"
           >
             <span class="hidden sm:inline">Plan Your Visit</span>
             <span class="sm:hidden">Plan</span>
           </NuxtLink>
+
           <button
             type="button"
             class="grid size-10 place-items-center rounded-full text-navy xl:hidden"
@@ -121,41 +168,6 @@
         </NuxtLink>
       </nav>
     </div>
-
-    <dialog
-      ref="searchDialog"
-      class="w-[min(560px,calc(100%-2rem))] rounded-2xl bg-white p-4 text-navy backdrop:bg-black/40"
-      @close="onSearchClose"
-    >
-      <form class="flex items-center gap-2" @submit.prevent="goFirst">
-        <Icon name="lucide:search" class="size-5 shrink-0 text-slate" />
-        <input
-          ref="searchInput"
-          v-model="query"
-          type="search"
-          placeholder="Search destinations and experiences"
-          class="w-full bg-transparent py-2 text-base outline-none placeholder:text-slate"
-          aria-label="Search query"
-        >
-        <button type="button" class="rounded-full px-3 py-1.5 text-sm text-slate hover:bg-black/5" @click="closeSearch">
-          Close
-        </button>
-      </form>
-      <ul class="mt-2 max-h-80 overflow-y-auto">
-        <li v-for="result in results" :key="result.to">
-          <NuxtLink :to="result.to" class="flex items-center justify-between rounded-xl px-2 py-2.5 hover:bg-blush/50" @click="closeSearch">
-            <span>
-              <span class="block text-sm font-semibold">{{ result.label }}</span>
-              <span class="block text-xs text-slate">{{ result.kind }}</span>
-            </span>
-            <Icon name="lucide:arrow-up-right" class="size-4 text-slate" />
-          </NuxtLink>
-        </li>
-        <li v-if="query && !results.length" class="px-2 py-6 text-sm text-slate">
-          Nothing matches “{{ query }}”.
-        </li>
-      </ul>
-    </dialog>
   </Teleport>
 </template>
 
@@ -173,7 +185,7 @@ const open = ref(false)
 const openMenu = ref('')
 const query = ref('')
 const searching = ref(false)
-const searchDialog = ref<HTMLDialogElement | null>(null)
+const searchBox = ref<HTMLElement | null>(null)
 const searchInput = ref<HTMLInputElement | null>(null)
 const destinations = ref<Destination[]>([])
 const experiences = ref<Experience[]>([])
@@ -195,7 +207,7 @@ const results = computed(() => {
     .map(item => ({ label: item.name, kind: 'Destination', to: `/destinations/${item.slug}` }))
   const activities = experiences.value
     .filter(item => `${item.name} ${item.summary}`.toLowerCase().includes(term))
-    .map(item => ({ label: item.name, kind: 'Experience', to: `/experiences#${item.slug}` }))
+    .map(item => ({ label: item.name, kind: 'Experience', to: `/things-to-do#${item.slug}` }))
   return [...places, ...activities].slice(0, 8)
 })
 
@@ -227,24 +239,21 @@ function onScroll() {
 }
 
 async function openSearch() {
+  // Expand the field right away, then load the data in the background.
+  searching.value = true
+  await nextTick()
+  searchInput.value?.focus()
+
   if (!destinations.value.length) {
     const [places, activities] = await Promise.all([getDestinations(), getExperiences()])
     destinations.value = places
     experiences.value = activities
   }
-  searching.value = true
-  searchDialog.value?.showModal()
-  await nextTick()
-  searchInput.value?.focus()
 }
 
 function closeSearch() {
-  if (searchDialog.value?.open) searchDialog.value.close()
-}
-
-function onSearchClose() {
-  query.value = ''
   searching.value = false
+  query.value = ''
 }
 
 function goFirst() {
@@ -268,18 +277,29 @@ watch(open, (value) => {
 })
 
 function onKey(event: KeyboardEvent) {
-  if (event.key === 'Escape') open.value = false
+  if (event.key !== 'Escape') return
+  open.value = false
+  closeSearch()
+}
+
+function onPointerDown(event: PointerEvent) {
+  if (!searching.value) return
+  const target = event.target
+  if (target instanceof Node && searchBox.value?.contains(target)) return
+  closeSearch()
 }
 
 onMounted(() => {
   onScroll()
   window.addEventListener('scroll', onScroll, { passive: true })
   window.addEventListener('keydown', onKey)
+  document.addEventListener('pointerdown', onPointerDown)
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
   window.removeEventListener('keydown', onKey)
+  document.removeEventListener('pointerdown', onPointerDown)
   document.body.style.overflow = ''
 })
 </script>
